@@ -7,7 +7,7 @@ export interface FormField {
   isRequired: boolean;
   value: string | undefined;
   setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  validationRegex: RegExp;
   placeholder?: string;
-  validationRegex?: RegExp;
   customComponent?: JSX.Element;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   EMAIL_VALIDATION_REGEX,
+  PASSWORD_VALIDATION_REGEX,
   PATH_VALIDATION_REGEX,
   PORT_VALIDATION_REGEX,
   SERVER_ADDRESS_VALIDATION_REGEX,
@@ -15,6 +16,7 @@ import { Button } from "@mui/material";
 import { validateField } from "../../utils/validators";
 import { logPayload } from "../../utils/funcs";
 import { FormField } from "../formField/types";
+import { log } from "console";
 
 export const Form = () => {
   const [userName, setUserName] = useState<string | undefined>();
@@ -44,6 +46,7 @@ export const Form = () => {
       errorMessage: "Error in password",
       value: password,
       setValue: setPassword,
+      validationRegex: PASSWORD_VALIDATION_REGEX,
       isRequired: true,
     },
     {
@@ -91,9 +94,8 @@ export const Form = () => {
   const submitForm = (): void => {
     let errorMessage: string = "";
 
-    const fieldsToValidate: FormField[] = FORM_TYPES.ADVANCED
-      ? commonFormFields
-      : advancedFormFields;
+    const fieldsToValidate: FormField[] =
+      accountType === FORM_TYPES.MANUAL ? commonFormFields : advancedFormFields;
 
     fieldsToValidate.forEach((field: FormField) => {
       errorMessage += validateField(field);
@@ -104,6 +106,7 @@ export const Form = () => {
     } else {
       console.info("Submitted successfully");
       logPayload(fieldsToValidate);
+      alert("Submitted form!");
     }
   };
 

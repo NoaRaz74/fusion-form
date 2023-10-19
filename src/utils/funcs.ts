@@ -2,12 +2,11 @@ import { FormField } from "../components/formField/types";
 
 export const logPayload = (fieldsToValidate: FormField[]) => {
   console.log(
-    fieldsToValidate.reduce((acc, currentValue: FormField) => {
+    fieldsToValidate.map((field: FormField) => {
       return {
-        ...acc,
-        fieldName: currentValue.name,
-        fieldValue: currentValue.value,
+        fieldName: field.name,
+        fieldValue: field.value,
       };
-    }, {})
+    })
   );
 };
